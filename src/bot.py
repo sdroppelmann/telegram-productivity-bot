@@ -33,8 +33,7 @@ class Bot:
                                                                                                          "it's time "
                                                                                                          "for a break")
 
-                    # handle any message that comes in chat
-
+    # handle any message that comes in chat
     def handle(self, msg):
         content = telepot.glance(msg)
         if content[0] == 'text':
