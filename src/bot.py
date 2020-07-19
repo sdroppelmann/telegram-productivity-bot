@@ -76,7 +76,7 @@ class Bot:
             self.send_message('Unknown command: ' + command)
 
     def process_status(self):
-        message = 'Work mode ' + 'active' if self.work_mode else 'inactive' + ', break interval is '
+        message = 'Work mode ' + ('active' if self.work_mode else 'inactive') + ', break interval is '
         message += str(self.break_interval_min) + ' minutes, ' + str(self.time_since_break_min)
         message += ' minutes since last break'
         self.send_message(message)
