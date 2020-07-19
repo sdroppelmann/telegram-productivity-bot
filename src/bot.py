@@ -37,6 +37,8 @@ class Bot:
             time.sleep(1)
             self.next_second()
 
+        self.send_message('Shutting down ProductivityBot...')
+
     def next_second(self):
         if self.work_mode:
             self.time_seconds += 1
@@ -68,12 +70,19 @@ class Bot:
             self.process_break_interval(command)
         elif command == 'shutdown':
             self.process_shutdown()
+        elif command == 'status':
+            self.process_status()
         else:
             self.send_message('Unknown command: ' + command)
 
+    def process_status(self):
+        message = 'Work mode ' + 'active' if self.work_mode else 'inactive' + ', break interval is '
+        message += str(self.break_interval_min) + ' minutes, ' + str(self.time_since_break_min)
+        message += ' minutes since last break'
+        self.send_message(message)
+
     def process_shutdown(self):
         self.running = False
-        self.send_message('Shutting down ProductivityBot...')
 
     def process_break_interval(self, command):
         try:
