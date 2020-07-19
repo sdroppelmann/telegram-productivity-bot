@@ -78,7 +78,7 @@ class Bot:
     def process_status(self):
         message = 'Work mode ' + ('active' if self.work_mode else 'inactive') + ', break interval is '
         message += str(self.break_interval_min) + ' minutes, ' + str(self.time_since_break_min)
-        message += ' minutes since last break'
+        message += ' minutes and' + str(self.time_seconds) + 'seconds, since last break'
         self.send_message(message)
 
     def process_shutdown(self):
