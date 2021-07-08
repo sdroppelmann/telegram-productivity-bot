@@ -1,5 +1,5 @@
 # Telegram Productivity Bot
-A bot that reminds you to take breaks. Yeah, that pretty much it.
+A bot that reminds you to take breaks. Yeah, that is pretty much it.
 
 ## Dependencies
 [Telepot](https://telepot.readthedocs.io/en/latest/)
