@@ -2,6 +2,7 @@ import telepot
 from telepot.loop import MessageLoop
 import time
 import sys
+import json
 
 
 class Bot:
@@ -16,14 +17,18 @@ class Bot:
             'continue':         self.process_continue
         }
 
+        with open('config.json', 'r') as file:
+            self.config = json.load(file)
+
         self.running = True
         self.work_mode = False
-        self.break_interval_min = 60
+        self.break_interval_min = int(self.config['breakIntervalMin'])
         self.time_since_break_min = 0
         self.time_seconds = 0
         self.token, self.user_id = self.parse_args(args)
         self.bot = telepot.Bot(self.token)
         self.send_message('Starting ProductivityBot...')
+        self.process_status('status')
         MessageLoop(self.bot, self.handle).run_as_thread()
         while self.running:
             time.sleep(1)
@@ -101,6 +106,9 @@ class Bot:
                 self.send_break_interval_usage()
             else:
                 self.break_interval_min = interval
+                self.config['breakIntervalMin'] = str(interval)
+                with open('config.json', 'w') as file:
+                    json.dump(self.config, file)
                 self.reset_time()
                 self.send_message('Set break interval to ' + str(interval) + ' minutes')
                 if self.work_mode:
